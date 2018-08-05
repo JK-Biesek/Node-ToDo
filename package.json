@@ -1,0 +1,37 @@
+{
+  "name": "node-todo",
+  "version": "1.0.0",
+  "description": "ToDo app with PostgreSQL",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./index.js --exec babel-node -e js",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JK-Biesek/Node-ToDo.git"
+  },
+  "author": "Jakub Biesek",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JK-Biesek/Node-ToDo/issues"
+  },
+  "homepage": "https://github.com/JK-Biesek/Node-ToDo#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "consolidate": "^0.15.1",
+    "dust": "^0.3.0",
+    "dustjs-helpers": "^1.7.4",
+    "dustjs-linkedin": "^2.7.5",
+    "express": "^4.16.3",
+    "nodemon": "^1.18.3",
+    "pg": "^7.4.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-0": "^6.24.1",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0"
+  }
+}
