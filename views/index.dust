@@ -1,5 +1,19 @@
 {>"layout" /}
 
 {<body}
-    Hello World
+    {#toDo}
+    <div class="well">
+    <h3>{task}</h3>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    View
+  </button>
+    
+   <div class="collapse" id="collapseExample">
+  <div class="card card-body">
+   {description}
+  </div>
+</div>
+     
+    </div>
+    {/toDo}
 {/body}

@@ -15,14 +15,22 @@ const pool = new Pool({
     connectionString: connectionString,
 });
 pool.query('SELECT NOW()', (err, res) => {
-    console.log(err, res);
+   if(err){
+    logger.error(`Can not connect !`);
+   } else{
+    logger.info(`Connected to the Postgres database, command ${res.command} successfull ran ! `);
+   }
     pool.end();
 });
 
 const client = new Client({
     connectionString: connectionString,
-})
+});
 client.connect();
+/* client.query('SELECT NOW()', (err, res) => {
+   console.log(err, res)
+   client.end()
+ })*/
 
 app.engine('dust', cons.dust);
 app.set('view engine', 'dust');
@@ -35,18 +43,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', (req, res) => {
-    const query = {
-        text: 'SELECT task FROM public."toDo" where id = 1',
-        rowMode: 'array',
-    };
-    client.query(query, (err, res, done) => {
-        // let   newarr = res.fields.map((f,i,) =>{ return f.name});
-        //console.log(newarr); // ['first_name', 'last_name']
-        console.log(res.rows); // ['Brian', 'Carlson']
-        done();
-        res.render('index', { toDo: res.rows });
+    client.connect(()=>{
+        client.query('SELECT * FROM public."toDo"', (err, result) => {
+            if (err) {
+              console.log(err.stack);
+              logger.info(`Something went wrong ${err.stack}`);
+            } else {
+                logger.info(`Command ${result.command} successfull ran ! `);
+            }
+            res.render('index',{toDo: result.rows});
+          }); 
     });
-    
 });
 
 app.listen(port, () => {
