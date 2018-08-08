@@ -15,11 +15,11 @@ const pool = new Pool({
     connectionString: connectionString,
 });
 pool.query('SELECT NOW()', (err, res) => {
-   if(err){
-    logger.error(`Can not connect !`);
-   } else{
-    logger.info(`Connected to the Postgres database, command ${res.command} successfull ran ! `);
-   }
+    if (err) {
+        logger.error(`Can not connect !`);
+    } else {
+        logger.info(`Connected to the Postgres database, command ${res.command} successfull executed ! `);
+    }
     pool.end();
 });
 
@@ -43,17 +43,37 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', (req, res) => {
-    client.connect(()=>{
+    client.connect(() => {
         client.query('SELECT * FROM public."toDo"', (err, result) => {
             if (err) {
-              console.log(err.stack);
-              logger.info(`Something went wrong ${err.stack}`);
+                console.log(err.stack);
+                logger.info(`Something went wrong ${err.stack}`);
             } else {
-                logger.info(`Command ${result.command} successfull ran ! `);
+                logger.info(`Command ${result.command} successfull executed ! `);
             }
-            res.render('index',{toDo: result.rows});
-          }); 
+            res.render('index', { toDo: result.rows });
+            client.end();
+        });
     });
+});
+
+app.post('/addTask', (req, res, err) => {
+    if (err) {
+        logger.error(`Something went wrong ${err.stack}`);
+    }
+        const insert = {
+            text: 'INSERT INTO  public."toDo" (task, description,directions) VALUES($1, $2, $3)',
+            values: [req.body.task, req.body.description, req.body.directions],
+          }
+        client.query(insert,(error,result)=>{
+            if (err) {
+                logger.error(`Something went wrong !! ${err.stack}`);
+            } else {
+                logger.info(`Command ${result.command} successfull executed ! \n added ${req.body.task, req.body.description, req.body.directions} to database`);
+            }
+        });
+        res.redirect('/');
+  
 });
 
 app.listen(port, () => {
