@@ -19,6 +19,12 @@
    <p><b> Task : </b>{description}</p>
    <p><b> Where : </b>{directions}</p>
    <br />
+   <div class="form-group">
+   <form method="post" action="/delete">
+   <input type="hidden" name="id" value="{id}"/>
+   <input type="submit" class="btn btn-danger btn-sm" id="delete" value="Delete Task"></button>
+   </form>
+</div>
    <hr>
    
 </div>

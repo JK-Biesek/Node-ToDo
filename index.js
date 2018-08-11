@@ -52,28 +52,43 @@ app.get('/', (req, res) => {
                 logger.info(`Command ${result.command} successfull executed ! `);
             }
             res.render('index', { toDo: result.rows });
-            client.end();
+            //client.end();
         });
     });
 });
 
-app.post('/addTask', (req, res, err) => {
-    if (err) {
-        logger.error(`Something went wrong ${err.stack}`);
+app.post('/addTask', (req, res) => {
+
+    const insert = {
+        text: 'INSERT INTO  public."toDo" (task, description,directions) VALUES($1, $2, $3)',
+        values: [req.body.task, req.body.description, req.body.directions],
     }
-        const insert = {
-            text: 'INSERT INTO  public."toDo" (task, description,directions) VALUES($1, $2, $3)',
-            values: [req.body.task, req.body.description, req.body.directions],
-          }
-        client.query(insert,(error,result)=>{
-            if (err) {
-                logger.error(`Something went wrong !! ${err.stack}`);
-            } else {
-                logger.info(`Command ${result.command} successfull executed ! \n added ${req.body.task, req.body.description, req.body.directions} to database`);
-            }
-        });
-        res.redirect('/');
-  
+    client.query(insert, (err, result) => {
+        if (err) {
+            logger.error(`Something went wrong !! ${err.stack}`);
+        } else {
+            logger.info(`Command ${result.command} successfull executed ! Task ${req.body.task} added to database`);
+        }
+        //client.end();
+    });
+    res.redirect('/');
+
+});
+
+app.post('/delete', (req, res) => {
+    let deleteTask = {
+        text: 'DELETE FROM public."toDo" WHERE id = $1',
+        values: [req.body.id],
+    }
+    client.query(deleteTask,(err,result)=>{
+        if(err){
+            logger.error(`Something went wrong during deletion of object ${req.body.id}-->${err.stack}`);
+        } else{
+            logger.info(`Command ${result.command} successfull executed ! Task ${req.body.id} Deleted from the database`);
+        }
+       // client.end();
+    });
+    res.redirect('/');
 });
 
 app.listen(port, () => {
