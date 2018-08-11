@@ -91,6 +91,11 @@ app.post('/delete', (req, res) => {
     res.redirect('/');
 });
 
+app.post('/deleteAll',(req,res)=>{
+console.log(req.body);
+
+});
+
 app.listen(port, () => {
     console.log(`App is listening to port:${port}`);
 }).on('listening', () => logger.info(`HTTP server is listening on port ${port}`)); 

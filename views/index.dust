@@ -5,9 +5,12 @@
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#toDo_Add">
  Add task
 </button>
+<input type="button" class="btn btn-danger" data-toggle="modal" data-target="#toDo_Delete"
+id="deleteAll" value="all">
+   Delete all
 <hr>
     {#toDo}
-    <div class="well">
+    <div class="well msg">
     
     <h3>{task}</h3>
     <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#task_{id}" aria-expanded="false" aria-controls="task_{id}">
