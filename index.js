@@ -91,10 +91,24 @@ app.post('/delete', (req, res) => {
     res.redirect('/');
 });
 
-app.post('/deleteAll',(req,res)=>{
-console.log(req.body);
-
+app.post('/deleteAll', function(req, res){
+    let msg = 'All task successfully deleted';
+	if(req.body.message != "") {
+        let deleteAll_Query = {
+            text: 'DELETE FROM public."toDo"'
+        }
+        client.query(deleteAll_Query,(err)=>{
+            if(err){
+                logger.error(`Something went wrong during deletion of all objects --> ${err.stack}`);
+            } else{
+                logger.info(`${req.body.title} successfull executed !`);
+            }
+        });
+    }
+    res.send(msg);
+    res.redirect('/');
 });
+
 
 app.listen(port, () => {
     console.log(`App is listening to port:${port}`);
