@@ -1,5 +1,4 @@
 {>"layout" /} {
-
 <body} <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#toDo_Add">
         Add task
@@ -28,17 +27,25 @@
                 <b> Where : </b>{directions}</p>
             <br />
             <div class="form-group">
-                <form method="post" action="/delete">
-                    <input type="hidden" name="id" value="{id}" />
-                    <input type="submit" class="btn btn-danger btn-sm" id="delete" value="Delete Task">
-                    </button>
-                </form>
+                <div class="btn-group">
+                    <form method="post" action="/delete">
+                        <input type="hidden" name="id" value="{id}" />
+                        <input type="submit" class="btn btn-danger btn-sm" id="delete" value="Delete Task">
+                        </button>
+                    </form>
+                    <form method="post" action="/edit">
+                        <input type="hidden" name="id" value="{id}" />
+                        <input type="submit" class="btn btn-warning btn-sm" id="edit" value="Edit Task">
+                        </button>
+                    </form>
+                </div>
             </div>
             <hr>
 
         </div>
 
     </div>
+
     {/toDo}
 
 
@@ -46,9 +53,11 @@
     <div class="container">
 
 
-        <div class="modal" id="toDo_Add" role="dialog" aria-labelledby="formModalLabel">
-            <div class="modal-dialog" role="document">
+        <!-- The Modal -->
+        <div class="modal" id="toDo_Add">
+            <div class="modal-dialog">
                 <div class="modal-content">
+
                     <form method="post" action="/addTask">
                         <div class="modal-header">
                             <h5 class="modal-title" id="formModalLabel">Create New Task</h5>
@@ -81,6 +90,8 @@
                             <input type="submit" class="btn btn-success" value="Add Task"></input>
                         </div>
                     </form>
+
+
                 </div>
             </div>
         </div>

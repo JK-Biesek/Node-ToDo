@@ -109,6 +109,9 @@ app.post('/deleteAll', function(req, res){
     res.redirect('/');
 });
 
+app.post('/editTask',(req,res)=>{
+    
+});
 
 app.listen(port, () => {
     console.log(`App is listening to port:${port}`);
