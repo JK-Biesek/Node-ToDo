@@ -1,5 +1,5 @@
-{>"layout" /} {
-<body} <!-- Button trigger modal -->
+{>"layout" /} 
+{<body} <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#toDo_Add">
         Add task
     </button>
@@ -14,32 +14,32 @@
     {#toDo}
     <div class="well">
 
-        <h3>{task}</h3>
+        <h3 id="name_{id}">{task}</h3>
         <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#task_{id}" aria-expanded="false" aria-controls="task_{id}">
             View
         </button>
-
+        <input type="hidden"id="hiddenId" value="{id}">
         <div class="collapse" id="task_{id}">
             <br />
             <p>
-                <b> Task : </b>{description}</p>
+                <b> Task : </b> <span id="desc_{id}">{description}</span></p>
             <p>
-                <b> Where : </b>{directions}</p>
+                <b> Where : </b> <span id="dir_{id}">{directions}</span></p>
             <br />
-            <div class="form-group">
+            
                 <div class="btn-group">
                     <form method="post" action="/delete">
                         <input type="hidden" name="id" value="{id}" />
                         <input type="submit" class="btn btn-danger btn-sm" id="delete" value="Delete Task">
                         </button>
-                    </form>
-                    <form method="post" action="/edit">
-                        <input type="hidden" name="id" value="{id}" />
-                        <input type="submit" class="btn btn-warning btn-sm" id="edit" value="Edit Task">
-                        </button>
-                    </form>
+                    </form>             
+                        <input type="hidden" id="hidden_edit" name="id" value="{id}" />
+                        <button type="button" class="btn btn-warning btn-sm" id="edit_task" data-toggle="modal" data-target="#toDo_Edit">
+                                Edit task
+                            </button>
+                    
                 </div>
-            </div>
+            
             <hr>
 
         </div>
@@ -82,7 +82,7 @@
                                 <label>
                                     Directions:
                                 </label>
-                                <textarea name="directions" class="form-control"></textarea>
+                                <textarea name="directions"  class="form-control"></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -95,6 +95,50 @@
                 </div>
             </div>
         </div>
+
+
+         <!-- The Modal #EDIT-->
+         <div class="modal" id="toDo_Edit">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+    
+                        <form method="post" action="/editTask">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="formModalLabel">Edit Task</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label>
+                                        Task:
+                                    </label>
+                                    <textarea name="task" id="edit_taskName" class="form-control"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        Description:
+                                    </label>
+                                    <textarea name="description" id="edit_taskDesc" class="form-control"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        Directions:
+                                    </label>
+                                    <textarea name="directions" id="edit_taskDir" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-success" value="Edit Task"></input>
+                            </div>
+                        </form>
+    
+    
+                    </div>
+                </div>
+            </div>
 
     </div>
     {/body}
