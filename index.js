@@ -110,6 +110,7 @@ app.post('/deleteAll', function(req, res){
 });
 
 app.post('/editTask',(req,res)=>{
+    console.log('edit');
     
 });
 

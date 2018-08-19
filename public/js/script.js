@@ -19,7 +19,7 @@ $(document).ready(function () {
     });
 
 
-    $( "#edit_task" ).click(function() {
+    $( "button#edit_task" ).click(function() {
         var id = $('#hidden_edit').val();
         var taskId = $('#hiddenId').val();
         var name = $('#name_'+id).text();
