@@ -1,0 +1,10 @@
+{"message":"HTTP server is listening on port 3000","level":"info"}
+{"message":"Connected to the Postgres database, command SELECT successfull executed ! ","level":"info"}
+{"message":"Command INSERT successfull executed ! Task hello added to database","level":"info"}
+{"message":"Command SELECT successfull executed ! ","level":"info"}
+{"message":"Command UPDATE successfull executed ! Task 24 Editted","level":"info"}
+{"message":"Command SELECT successfull executed ! ","level":"info"}
+{"message":"Command DELETE successfull executed ! Task 24 Deleted from the database","level":"info"}
+{"message":"Command SELECT successfull executed ! ","level":"info"}
+{"message":"HTTP server is listening on port 3000","level":"info"}
+{"message":"Connected to the Postgres database, command SELECT successfull executed ! ","level":"info"}
