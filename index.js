@@ -109,6 +109,27 @@ app.post('/deleteAll', function(req, res){
     res.redirect('/');
 });
 
+app.post('/editTask',(req,res)=>{
+    let msg;
+    if(req.body.id == undefined ){
+        let queryEdit = { text: 'UPDATE public."toDo" SET task =$1, description = $2 ,directions = $3 WHERE id = $4',
+        values: [req.body.task, req.body.description, req.body.directions,req.body.id]};
+
+        client.query(queryEdit,(err,result)=>{
+            if (err) {
+                logger.error(`Something went wrong !! ${err.stack}`);
+            } else {
+                logger.info(`Command ${result.command} successfull executed ! Task ${req.body.id} Editted`);
+            }
+            //client.end();
+        });
+    } else {
+        msg = 'somethng went wrong';
+        res.send(msg);
+    }
+  
+    res.redirect('/');
+});
 
 app.listen(port, () => {
     console.log(`App is listening to port:${port}`);

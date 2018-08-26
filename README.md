@@ -1,5 +1,5 @@
 ## About NodeJs To Do app
-This app allows to Creat/Delete/Edit/View the tasks
+This app allows to ``Creat/Delete/Edit/View`` the tasks
 
 ## How to use
 To run the app type ```npm run build``` in command line
