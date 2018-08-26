@@ -1,5 +1,0 @@
-{"message":"HTTP server is listening on port 3000","level":"info"}
-{"message":"Connected to the Postgres database, command SELECT successfull executed ! ","level":"info"}
-{"message":"Command SELECT successfull executed ! ","level":"info"}
-{"message":"Command UPDATE successfull executed ! Task 18 Editted","level":"info"}
-{"message":"Command SELECT successfull executed ! ","level":"info"}
