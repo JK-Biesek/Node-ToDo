@@ -20,16 +20,17 @@ $(document).ready(function () {
 
 
     $( "button#edit_task" ).click(function() {
-        var id = $('#hidden_edit').val();
-        var taskId = $('#hiddenId').val();
+        var taskId = $('#edit_task').val($(this).data('id'));
+        var id = taskId.val();
         var name = $('#name_'+id).text();
         var desc = $('#desc_'+id).text();
         var dir = $('#dir_'+id).text();
-        
-        if(taskId == id){
+
+         if(taskId != 'undefined' || taskId != null){
+             $('#editHidden').val(id);
             $('#edit_taskName').val(name);
             $('#edit_taskDesc').val(desc);
             $('#edit_taskDir').val(dir);
-        }
+        } 
     });
 });
