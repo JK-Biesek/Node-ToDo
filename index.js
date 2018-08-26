@@ -110,8 +110,8 @@ app.post('/deleteAll', function(req, res){
 });
 
 app.post('/editTask',(req,res)=>{
-    let msg;
-    if(req.body.id != undefined ){
+    let msgError;
+    if(req.body.id == undefined ){
         let queryEdit = { text: 'UPDATE public."toDo" SET task =$1, description = $2 ,directions = $3 WHERE id = $4',
         values: [req.body.task, req.body.description, req.body.directions,req.body.id]};
 
@@ -124,8 +124,8 @@ app.post('/editTask',(req,res)=>{
             //client.end();
         });
     } else {
-        msg = 'somethng went wrong';
-        res.send(msg);
+        msgError = '/views/error.html';
+        return  res.sendFile(path.join(__dirname + msgError));
     }
   
     res.redirect('/');
