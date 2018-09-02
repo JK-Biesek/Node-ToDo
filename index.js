@@ -4,6 +4,8 @@ const { Pool, Client } = require('pg');
 let cons = require('consolidate');
 let dust = require('dustjs-helpers');
 let path = require('path');
+let createTableQ = require('./database/create');
+let queries = require('./database/scripts');
 
 const logger = require('./logger/logger');
 const app = express();
@@ -111,7 +113,7 @@ app.post('/deleteAll', function(req, res){
 
 app.post('/editTask',(req,res)=>{
     let msgError;
-    if(req.body.id != undefined ){
+    if(req.body.id != undefined ){  
         let queryEdit = { text: 'UPDATE public."toDo" SET task =$1, description = $2 ,directions = $3 WHERE id = $4',
         values: [req.body.task, req.body.description, req.body.directions,req.body.id]};
 
@@ -129,6 +131,61 @@ app.post('/editTask',(req,res)=>{
     }
   
     res.redirect('/');
+});
+
+const databaseQueries = (req,res) => {
+    
+}
+app.get('/createTable',(req,res)=>{
+    client.query(queries.createDatabase, (err, result) => {
+        if (err) {
+            logger.error(`Something went wrong !! ${err.stack}`);
+        } else {
+            logger.info(`Command ${result.command} Database successfull executed !`);
+            client.query(queries.CreateTable, (err, result) => {
+                if (err) {
+                    logger.error(`Something went wrong !! ${err.stack}`);
+                } else {
+                    logger.info(`Command ${result.command} Table successfull executed !`);
+                    client.query(queries.ownerQery, (err, result) => {
+                        if (err) {
+                            logger.error(`Something went wrong !! ${err.stack}`);
+                        } else {
+                            logger.info(`Command ${result.command} Owner successfull executed !`);
+                            client.query(queries.columnId, (err, result) => {
+                                if (err) {
+                                    logger.error(`Something went wrong !! ${err.stack}`);
+                                } else {
+                                    logger.info(`Command ${result.command} Primary Key successfull executed !`);
+                                    client.query(queries.columnTask, (err, result) => {
+                                        if (err) {
+                                            logger.error(`Something went wrong !! ${err.stack}`);
+                                        } else {
+                                            logger.info(`Command ${result.command} Task Added successfull executed !`);
+                                            client.query(queries.columnDesc, (err, result) => {
+                                                if (err) {
+                                                    logger.error(`Something went wrong !! ${err.stack}`);
+                                                } else {
+                                                    logger.info(`Command ${result.command} Description Added successfull executed !`);
+                                                    client.query(queries.columnDir, (err, result) => {
+                                                        if (err) {
+                                                            logger.error(`Something went wrong !! ${err.stack}`);
+                                                        } else {
+                                                            logger.info(`Command ${result.command} Direction Added successfull executed !`);
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
 });
 
 app.listen(port, () => {
