@@ -172,6 +172,7 @@ app.get('/createTable',(req,res)=>{
                                                             logger.error(`Something went wrong !! ${err.stack}`);
                                                         } else {
                                                             logger.info(`Command ${result.command} Direction Added successfull executed !`);
+                                                            //need to add Info page then redirect 
                                                         }
                                                     });
                                                 }
